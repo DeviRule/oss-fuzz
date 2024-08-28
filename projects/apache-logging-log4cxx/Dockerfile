@@ -1,4 +1,4 @@
-# Copyright 2016 Google Inc.
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,12 +15,10 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update && apt-get install -y make autoconf automake libtool pkg-config \
-    libssl-dev wget liblzma-dev python-dev python3-dev
-# Build requires automake 1.16.3
-RUN curl -LO http://mirrors.kernel.org/ubuntu/pool/main/a/automake-1.16/automake_1.16.5-1.3_all.deb && \
-    apt install ./automake_1.16.5-1.3_all.deb    
-RUN git clone --depth 1 https://github.com/lsh123/xmlsec
-RUN git clone --depth 1 https://gitlab.gnome.org/GNOME/libxml2.git
-RUN git clone --depth 1 https://gitlab.gnome.org/GNOME/libxslt.git
+
+# Log4cxx build dependencies: https://logging.apache.org/log4cxx/latest_stable/build-cmake.html
+RUN apt-get update && apt-get install -y build-essential libapr1-dev libaprutil1-dev gzip zip
+
 COPY build.sh $SRC/
+
+WORKDIR $SRC
