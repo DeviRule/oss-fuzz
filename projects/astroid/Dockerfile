@@ -18,9 +18,7 @@ FROM gcr.io/oss-fuzz-base/base-builder-python
 
 RUN pip3 install --disable-pip-version-check --no-cache-dir pip==24.2
 
-# Pin the astroid version to 3.2.4 until Python 3.9+ is supported on OSS-Fuzz:
-# https://github.com/google/oss-fuzz/pull/12027
-RUN git clone --depth=1 --branch=v3.2.4 https://github.com/pylint-dev/astroid
+RUN git clone --depth=1 --no-tags https://github.com/pylint-dev/astroid
 
 COPY *.py *.sh "$SRC/"
 

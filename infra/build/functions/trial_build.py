@@ -267,7 +267,7 @@ def wait_on_builds(build_ids, credentials, cloud_project, end_time):  # pylint: 
                            'v1',
                            credentials=credentials,
                            cache_discovery=False,
-                           client_options=build_lib.US_CENTRAL_CLIENT_OPTIONS)
+                           client_options=build_lib.REGIONAL_CLIENT_OPTIONS)
   cloudbuild_api = cloudbuild.projects().builds()  # pylint: disable=no-member
 
   wait_builds = build_ids.copy()
@@ -287,7 +287,7 @@ def wait_on_builds(build_ids, credentials, cloud_project, end_time):  # pylint: 
     # Update status every hour.
     if current_time >= next_check_time:
       logging.info(f'[{current_time}] Remaining builds: '
-                   '{len(wait_builds)}, {wait_builds}')
+                   f'{len(wait_builds)}, {wait_builds}')
       next_check_time += datetime.timedelta(hours=1)
 
     # Warn users and write a summary if build is about to end.
